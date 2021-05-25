@@ -1,13 +1,14 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 LABEL description="GOGS conteinerized binary working on ubi8"
 MAINTAINER Dmitry Alekhin <dalekhin@redhat.com>
-USER gogs
-RUN mkdir /data
+RUN useradd -ms /bin/bash gogs
+WORKDIR /home/gogs
 ADD https://dl.gogs.io/0.12.3/gogs_0.12.3_linux_amd64.tar.gz /tmp
-RUN tar zxvf /tmp/gogs_0.12.3_linux_amd64.tar.gz -C /data
-RUN chown gogs:gogs /data -R
-RUN chmod 755 /data -R
+RUN tar zxvf /tmp/gogs_0.12.3_linux_amd64.tar.gz -C /home/gogs
+USER gogs
+#RUN chown gogs:gogs /data -R
+#RUN chmod 755 /data -R
 EXPOSE 3000
 ENV DISABLE_SSH=true
 STOPSIGNAL SIGTERM
-CMD ["/data/gogs/gogs", "web"]
+CMD ["/home/gogs/gogs", "web"]
