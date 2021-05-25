@@ -11,4 +11,4 @@ USER gogs
 EXPOSE 3000
 ENV DISABLE_SSH=true
 STOPSIGNAL SIGTERM
-CMD ["/home/gogs/gogs", "web"]
+CMD ["/home/gogs/gogs/gogs", "web"]
